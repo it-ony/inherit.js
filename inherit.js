@@ -1,6 +1,8 @@
+
+var inherit;
 (function (global, exports) {
 
-    var inherit = function(classDefinition, baseClass) {
+    inherit = function(classDefinition, baseClass) {
         baseClass = baseClass || Object;
 
         var newClass = function() {
