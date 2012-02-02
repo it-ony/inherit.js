@@ -1,0 +1,63 @@
+<!Doctype html>
+<html>
+<head>
+    <title>inherit.js example</title>
+
+    <script type="text/javascript" src="inherit.js"></script>
+
+    <script type="text/javascript">
+
+        var Animal = inherit.Base.inherit({
+            ctor: function() {
+                console.log("-> Animal.ctor called");
+            },
+            toString: function() {
+                console.log("I'm an animal");
+            },
+            foo: function() {
+                console.log("Animal.foo called");
+            }
+        });
+
+        var Cat = Animal.inherit({
+            ctor: function(name) {
+                console.log("Cat.ctor called");
+
+                // call base constructor
+                this.base.ctor.callBase(this);
+
+                this.name = name;
+            },
+            toString: function() {
+                // overwrite toString method from Animal
+               console.log("I'm a cat. My name is " + this.name + ".");
+            }
+        });
+
+        var Lion = Cat.inherit({
+            ctor: function(name) {
+                console.log("Tiger.ctor called");
+                this.base.ctor.callBase(this, name);
+
+                // also call a method defined in Animal, but not redefined in Cat
+                this.base.foo.callBase(this);
+            }
+        })
+
+    </script>
+
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        var mizi = new Cat("Mizi");
+        var leo = new Lion("Leo");
+
+        mizi.toString();
+        leo.toString();
+
+    </script>
+
+</body>
+</html>
