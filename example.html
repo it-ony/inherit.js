@@ -8,19 +8,19 @@
     <script type="text/javascript">
 
         var Animal = inherit.Base.inherit({
-            ctor: function() {
+            ctor: function () {
                 console.log("-> Animal.ctor called");
             },
-            toString: function() {
+            toString: function () {
                 console.log("I'm an animal");
             },
-            foo: function() {
+            foo: function () {
                 console.log("Animal.foo called");
             }
         });
 
         var Cat = Animal.inherit({
-            ctor: function(name) {
+            ctor: function (name) {
                 console.log("Cat.ctor called");
 
                 // call base constructor
@@ -28,14 +28,14 @@
 
                 this.name = name;
             },
-            toString: function() {
+            toString: function () {
                 // overwrite toString method from Animal
-               console.log("I'm a cat. My name is " + this.name + ".");
+                console.log("I'm a cat. My name is " + this.name + ".");
             }
         });
 
         var Lion = Cat.inherit({
-            ctor: function(name) {
+            ctor: function (name) {
                 console.log("Tiger.ctor called");
                 this.base.ctor.callBase(this, name);
 
@@ -49,15 +49,49 @@
 </head>
 <body>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-        var mizi = new Cat("Mizi");
-        var leo = new Lion("Leo");
+    //        var mizi = new Cat("Mizi");
+    //        var leo = new Lion("Leo");
+    //
+    //        mizi.toString();
+    //        leo.toString();
 
-        mizi.toString();
-        leo.toString();
+    var A = inherit.Base.inherit({
+        ctor: function () {
+            // A.ctor
+        },
+        className: "A"
+    });
 
-    </script>
+    var B = A.inherit({
+        ctor: function () {
+            // B.ctor
+            this.base.ctor.callBase(this);
+            this.initAttributes();
+        },
+        initAttributes: function () {
+            // this.base.initAttributes.callBase(this);
+            console.log("INIT ATTRIBUTES OF ELEMENT");
+        },
+        className: "B"
+    });
+
+    var C = B.inherit({
+        ctor: function () {
+            // C.ctor
+            this.base.ctor.callBase(this);
+        },
+        initAttributes: function () {
+            this.base.initAttributes.callBase(this);
+            console.log("INIT ATTRIBUTES OF COMPONENT");
+        },
+        className: "C"
+    });
+
+    var el = new C();
+
+</script>
 
 </body>
 </html>
