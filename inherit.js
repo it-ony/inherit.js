@@ -1,4 +1,5 @@
 var inherit;
+
 (function (global, exports) {
 
     /**
@@ -38,7 +39,10 @@ var inherit;
             if (classDefinition.hasOwnProperty(publicMethod)) {
                 var baseFunction = newClass.prototype[publicMethod];
                 newClass.prototype[publicMethod] = classDefinition[publicMethod];
-                newClass.prototype[publicMethod].baseImplementation = baseFunction;
+
+                if (baseFunction instanceof Function) {
+                    newClass.prototype[publicMethod].baseImplementation = baseFunction;
+                }
             }
         }
 
@@ -49,6 +53,7 @@ var inherit;
     };
 
     inherit.callBase = function () {
+        // get arguments
         var args = Array.prototype.slice.call(arguments);
 
         if (args.length == 0) {
@@ -97,3 +102,4 @@ var inherit;
     exports.inherit = inherit;
 
 })(this, typeof exports === "undefined" ? this : exports);
+
