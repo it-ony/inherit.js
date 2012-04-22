@@ -9,7 +9,14 @@ var inherit;
      *
      * @return {Function} returns a constructor function describing the class
      */
-    inherit = function (classDefinition, baseClass) {
+    inherit = function (constructorName, classDefinition, baseClass) {
+
+        if (arguments.length !== 3) {
+            baseClass = classDefinition;
+            classDefinition = constructorName;
+            constructorName = null;
+        }
+
         baseClass = baseClass || Object;
 
         var newClass = function () {
@@ -17,7 +24,7 @@ var inherit;
                 return this.ctor.apply(this, arguments);
             }
         };
-        
+
         if (baseClass.constructor == Function) {
 
             function Inheritance() {
@@ -27,6 +34,11 @@ var inherit;
 
             newClass.prototype = new Inheritance();
             newClass.prototype.constructor = classDefinition;
+
+            if (classDefinition && constructorName) {
+                newClass.prototype.constructor.name = constructorName;
+            }
+
             newClass.prototype.base = baseClass.prototype;
 
         } else {
@@ -70,8 +82,12 @@ var inherit;
      *
      * @return {Function} returns a constructor function describing the class
      */
-    Function.prototype.inherit = function (classDefinition) {
-        return inherit(classDefinition, this);
+    Function.prototype.inherit = function (constructorName, classDefinition) {
+        if (arguments.length == 1) {
+            return inherit(constructorName, this);
+        }
+
+        return inherit(constructorName, classDefinition, this);
     };
 
     Function.prototype.callBase = function () {
