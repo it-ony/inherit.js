@@ -4,20 +4,29 @@ var inherit;
 
     /**
      *
+     * @param {String} [constructorName] The name of the constructor
      * @param {Object} classDefinition The definition for the prototype methods
+     * @param {Object} [staticDefinition] The definition for the prototype methods
      * @param {Function} [baseClass] The prototype to inherit from
      *
      * @return {Function} returns a constructor function describing the class
      */
-    inherit = function (constructorName, classDefinition, baseClass) {
+    inherit = function (constructorName, classDefinition, staticDefinition, baseClass) {
 
-        if (arguments.length !== 3) {
-            baseClass = classDefinition;
-            classDefinition = constructorName;
-            constructorName = null;
+        var args = Array.prototype.slice.call(arguments);
+
+        if (args[0] instanceof Object) {
+            args.unshift(null);
         }
 
-        baseClass = baseClass || Object;
+        if (args[2] instanceof Function) {
+            args.splice(2, 0, null);
+        }
+
+        constructorName = args[0];
+        classDefinition = args[1] || {};
+        staticDefinition = args[2] || {};
+        baseClass = args[3] || Object;
 
         var newClass = function () {
             if (this.ctor) {
@@ -25,7 +34,7 @@ var inherit;
             }
         };
 
-        if (baseClass.constructor == Function) {
+        if (baseClass.constructor instanceof Function) {
 
             function Inheritance() {
             }
@@ -58,6 +67,12 @@ var inherit;
             }
         }
 
+        for (var staticMethod in staticDefinition) {
+            if (staticDefinition.hasOwnProperty(staticMethod)) {
+                newClass[staticMethod] = staticDefinition[staticMethod];
+            }
+        }
+
         newClass.prototype.callBase = inherit.callBase;
 
         return newClass;
@@ -76,18 +91,22 @@ var inherit;
         return arguments.callee.caller.baseImplementation.apply(this, args);
     };
 
-    /**
+    /***
      *
-     * @param classDefinition The definition for the prototype methods
-     *
+     * @param {String} [constructorName]
+     * @param {Object} classDefinition The definition for the prototype methods
+     * @param {Object} [staticDefinition]
      * @return {Function} returns a constructor function describing the class
      */
-    Function.prototype.inherit = function (constructorName, classDefinition) {
-        if (arguments.length == 1) {
-            return inherit(constructorName, this);
+    Function.prototype.inherit = function (constructorName, classDefinition, staticDefinition) {
+
+        var args = Array.prototype.slice.call(arguments);
+
+        if (args[0] instanceof Object) {
+            args.unshift(null);
         }
 
-        return inherit(constructorName, classDefinition, this);
+        return inherit(args[0], args[1], args[2], this);
     };
 
     Function.prototype.callBase = function () {
