@@ -91,6 +91,8 @@ var inherit;
         return arguments.callee.caller.baseImplementation.apply(this, args);
     };
 
+
+
     /***
      *
      * @param {String} [constructorName]
@@ -124,6 +126,18 @@ var inherit;
         } else {
             throw "base not definied";
         }
+    };
+
+    Function.prototype.classof = function(factory) {
+        if (!factory) {
+            return false;
+        }
+
+        if (!(factory instanceof Function)) {
+            throw new Error("factory must be a function");
+        }
+
+        return (factory === this || this.prototype instanceof factory);
     };
 
     /**

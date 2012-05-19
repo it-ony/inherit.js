@@ -286,8 +286,6 @@ describe('inherit.js', function() {
 
         });
 
-
-
         it('parameter passing', function () {
 
             var a, b, c;
@@ -360,7 +358,6 @@ describe('inherit.js', function() {
 
         });
 
-
         it('break callbase', function () {
 
             var a, b, c;
@@ -392,6 +389,52 @@ describe('inherit.js', function() {
 
             b.should.be.eql(2);
             c.should.be.eql(3);
+
+        });
+    });
+
+    describe('#classof', function() {
+
+        it ('should return false for empty parameter', function() {
+
+            var f = function(){
+            };
+
+            f.classof().should.eql(false);
+
+        });
+
+        it('should return true if factory is class', function () {
+
+            var f = function () {
+            };
+
+            f.classof(f).should.eql(true);
+
+        });
+
+        it('should return true if factory is inherit from factory', function () {
+
+            var f = function () {
+            };
+
+            var inheritClass = f.inherit();
+
+            inheritClass.classof(f).should.eql(true);
+
+        });
+
+        it('should return false if factory is not inherit from factory', function () {
+
+            var f = function () {
+            };
+
+            var f2 = function() {
+            };
+
+            var inheritClass = f.inherit();
+
+            inheritClass.classof(f2).should.eql(false);
 
         });
     });
