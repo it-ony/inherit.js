@@ -12,9 +12,8 @@
   "engines": {
     "node": "*"
   },
-  "dependencies": {
+  "devDependencies": {
       "mocha": "latest",
       "should": "latest"
-  },
-  "devDependencies": {}
+  }
 }
