@@ -49,6 +49,7 @@ var inherit;
             }
 
             newClass.prototype.base = baseClass.prototype;
+            newClass.prototype.factory = newClass;
 
         } else {
             newClass.prototype = baseClass;
