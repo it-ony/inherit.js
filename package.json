@@ -2,7 +2,7 @@
   "author": "it-ony <inherit.js@it-ony.de> (http://it-ony.de)",
   "name": "inherit.js",
   "description": "inherit.js is an inheritance javascript library, which supports base method calls an easy way along the inheritance path.",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "homepage": "https://github.com/it-ony/inherit.js",
   "repository": {
     "type": "git",
@@ -13,7 +13,9 @@
     "node": "*"
   },
   "devDependencies": {
-      "mocha": "latest",
-      "should": "latest"
-  }
+    "mocha": "latest",
+    "should": "latest"
+  },
+  "dependencies": {},
+  "optionalDependencies": {}
 }
