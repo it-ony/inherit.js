@@ -42,11 +42,9 @@ var inherit;
             Inheritance.prototype = baseClass.prototype;
 
             newClass.prototype = new Inheritance();
-            newClass.prototype.constructor = classDefinition;
-
-            if (classDefinition && constructorName) {
-                newClass.prototype.constructor.name = constructorName;
-            }
+            newClass.prototype.constructor = {
+                name: constructorName
+            };
 
             newClass.prototype.base = baseClass.prototype;
             newClass.prototype.factory = newClass;
@@ -84,14 +82,13 @@ var inherit;
         // get arguments
         var args = Array.prototype.slice.call(arguments);
 
-        if (args.length == 0) {
+        if (args.length === 0) {
             // use arguments from call
             args = Array.prototype.slice.call(arguments.callee.caller.arguments);
         }
 
         return arguments.callee.caller.baseImplementation.apply(this, args);
     };
-
 
 
     /***
@@ -129,7 +126,7 @@ var inherit;
         }
     };
 
-    Function.prototype.classof = function(factory) {
+    Function.prototype.classof = function (factory) {
         if (!factory) {
             return false;
         }
