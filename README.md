@@ -1,3 +1,5 @@
+[![NPM version](https://badge.fury.io/js/inherit.js.png)](http://badge.fury.io/js/inherit.js)
+
 inherit.js - Inheritance javascript library
 ==========
 
