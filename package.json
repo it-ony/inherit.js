@@ -12,6 +12,9 @@
   "engines": {
     "node": "*"
   },
+  "scripts": {
+     "test": "mocha -R spec"
+  },
   "devDependencies": {
     "mocha": "latest",
     "should": "latest"
