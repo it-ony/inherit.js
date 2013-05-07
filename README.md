@@ -1,4 +1,4 @@
-[![build status](https://secure.travis-ci.org/it-ony/inherit.js.png)](http://travis-ci.org/it-ony/inherit.js)
+[![Build Status](https://travis-ci.org/it-ony/inherit.js.png?branch=master)](https://travis-ci.org/it-ony/inherit.js)
 [![NPM version](https://badge.fury.io/js/inherit.js.png)](http://badge.fury.io/js/inherit.js)
 
 inherit.js - Inheritance javascript library
